@@ -8,7 +8,7 @@ SEQUENCE_LENGTH = 1800
 
 
 def load_data():
-    df = pd.read_csv(os.path.join("..", "data", "train.csv"))
+    df = pd.read_csv(os.path.join("data", "train.csv"))
     X = df["comment_text"]
     y = df[df.columns[2:]].values
     return X, y

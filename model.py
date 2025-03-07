@@ -5,7 +5,7 @@ from tensorflow.keras.models import Sequential
 from data_loader import get_datasets
 
 MAX_FEATURES = 200000
-MODEL_PATH = "../models/toxicity_analysis_model.keras"
+MODEL_PATH = os.path.join("model", "toxicity_analysis_model.keras")
 
 
 def build_model():
