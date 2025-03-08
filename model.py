@@ -7,6 +7,11 @@ from data_loader import get_datasets
 MAX_FEATURES = 200000
 MODEL_PATH = os.path.join("model", "toxicity_analysis_model.keras")
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+tf.config.experimental.set_memory_growth(
+    tf.config.list_physical_devices("CPU")[0], True
+)
+
 
 def build_model():
     model = Sequential(
