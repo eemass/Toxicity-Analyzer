@@ -1,6 +1,7 @@
 import numpy as np
 import uvicorn
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from model import load_or_train_model
 from data_loader import get_vectorizer
@@ -8,6 +9,14 @@ from data_loader import get_vectorizer
 app = FastAPI()
 model = load_or_train_model()
 vectorizer = get_vectorizer()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Replace "*" with specific allowed origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all HTTP methods
+    allow_headers=["*"],  # Allows all headers
+)
 
 
 class InputText(BaseModel):
@@ -41,7 +50,3 @@ def predict_toxicity(input_text: InputText):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
